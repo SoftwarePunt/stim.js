@@ -1,5 +1,5 @@
 import Stim from "./Stim";
-import Injector from "./Injector";
+import Applicator from "./Applicator";
 
 export default class Preload {
   constructor(href) {
@@ -32,7 +32,7 @@ export default class Preload {
   apply() {
     if (this.done) {
       Stim.debug('[Preload]', '(Applying)', this.href);
-      Injector.handleServerResponse(this.xhr);
+      Applicator.handleServerResponse(this.href, this.xhr);
     } else {
       Stim.debug('[Preload]', '(Can\'t apply preload that isn\'t done!)', this.href);
     }

@@ -1,7 +1,15 @@
 import Stim from "./Stim";
 
-export default class Injector {
-  static handleServerResponse(xhr) {
+export default class Applicator {
+  static handleServerResponse(href, xhr) {
+    if (xhr.status >= 400) {
+      // 4XX or 5XX server error, XHR load failed
+      // redirect the browser for real to handle the situation (e.g. show error page)
+      Stim.log(`Hard redirecting user, got bad response code (${xhr.status})`);
+      document.location = href;
+      return;
+    }
+
     let holderElement = document.createElement('html');
     holderElement.innerHTML = xhr.response;
 
