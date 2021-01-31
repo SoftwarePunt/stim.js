@@ -21,6 +21,6 @@ jobs:
     - uses: actions/upload-artifact@v2
       name: Upload build artifact
       with:
-        name: build
-        path: build/
+        name: stim.js
+        path: build/stim.js
       
