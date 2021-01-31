@@ -1,5 +1,8 @@
 import Stim from "./Stim";
 
+/**
+ * Utility for applying loaded XHR responses to the DOM and state.
+ */
 export default class Applicator {
   static handleServerResponse(href, xhr) {
     if (xhr.status >= 400) {
@@ -15,8 +18,10 @@ export default class Applicator {
 
     // Apply <title> tag if we have one
     const titleElement = holderElement.getElementsByTagName('title')[0];
+    let prevTitle = document.title.toString();
+    let nextTitle = prevTitle;
     if (titleElement) {
-      document.title = titleElement.text;
+      nextTitle = titleElement.text
     }
 
     // Apply <body> tag if we have one
@@ -24,6 +29,10 @@ export default class Applicator {
     if (bodyElement) {
       document.body.innerHTML = bodyElement.innerHTML;
     }
+
+    // Push history state
+    history.pushState(null, nextTitle, href);
+    document.title = nextTitle;
 
     // Fire change event asynchronously
     setTimeout(() => {
