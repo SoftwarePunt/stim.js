@@ -5,6 +5,21 @@ import Stim from "./Stim";
  * Utility for handling <a> link binding.
  */
 export default class Navi {
+  static bindEvents() {
+    const initialHost = document.location.host;
+
+    window.addEventListener('popstate', (event) => {
+      if (document.location.host !== initialHost) {
+        Stim.log('Refusing to handle popstate event for another host:', document.location.host);
+        document.location.reload();
+      } else {
+        const preload = Loader.startOrContinuePreload(document.location.href);
+        preload.historyMode = true; // prevents pushstate
+        preload.commit();
+      }
+    });
+  }
+
   static processLinks() {
     const links = document.getElementsByTagName('a');
 

@@ -6,6 +6,8 @@ import Navi from './Navi';
 export default class Stim {
   static bootstrap() {
     console.log('💉 Stim.js - hello world!');
+
+    Navi.bindEvents();
     Stim.handlePageReloaded();
   }
 

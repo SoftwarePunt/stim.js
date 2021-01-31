@@ -7,6 +7,7 @@ export default class Preload {
     this.done = false;
     this.committed = false;
     this.stopped = false;
+    this.historyMode = false;
 
     this.xhr = new XMLHttpRequest();
     this.xhr.addEventListener('load', this.handleLoad.bind(this));
@@ -32,7 +33,7 @@ export default class Preload {
   apply() {
     if (this.done) {
       Stim.debug('[Preload]', '(Applying)', this.href);
-      Applicator.handleServerResponse(this.href, this.xhr);
+      Applicator.handlePreloadResult(this);
     } else {
       Stim.debug('[Preload]', '(Can\'t apply preload that isn\'t done!)', this.href);
     }
