@@ -27,6 +27,7 @@ export default class Tooltips {
     } else {
       element.eventBag.removeEventListener("mouseover.tooltips");
       element.eventBag.removeEventListener("mouseleave.tooltips");
+      element.eventBag.removeEventListener("mousemove.tooltips");
     }
 
     element.eventBag.addEventListener("mouseover.tooltips", () => {
@@ -52,6 +53,16 @@ export default class Tooltips {
           _templateInstance = null;
         }
         element.setAttribute("title", _titleValue);
+      }
+    });
+
+    element.eventBag.addEventListener("mousemove.tooltips", (e) => {
+      if (_templateInstance) {
+        const ttElement = _templateInstance.element;
+
+        ttElement.style.position = 'fixed';
+        ttElement.style.left = `${e.screenX}px`;
+        ttElement.style.top = `${e.screenY}px`;
       }
     });
 

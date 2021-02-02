@@ -41,7 +41,7 @@ export class TemplateDefinition {
     instance.applyData(data);
 
     this.instances[instanceId] = instance;
-    Stim.log('instantiate tpl', this.id, instance);
+    Stim.log('Instantiate template:', this.id, instance);
     return instance;
   }
 }
