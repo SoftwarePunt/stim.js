@@ -1,33 +1,15 @@
-# 💉 Stim.js
-**An ultra-lightweight JavaScript frontend framework that complements server-side rendering.**
+<h1 align="center">💉 <code>Stim.js</code></h1>
+<p align="center"><strong><em>Lightweight drop-in frontend framework for SSR apps</em></strong></p>
 
-*🚧 This library is still being prototyped and developed.*
+<p align="center"><strong><a href="https://stimjs.readthedocs.io/en/latest/" target="_blank">📕 Documentation</a>  •  <a href="https://www.npmjs.com/package/stim.js">💻 npm</a></strong></p>
 
-## Features
-- 🏎 **Accelerate applications that use server-side rendering**:
-  Preload pages on links at touch start or mouse down via XHR, like Turbolinks. This avoids full page reloads and makes navigation feel almost instant.
-  
-- 🧩 **An optional drop-in**:
-  Stim.js is designed to complement plain-old HTML rendering by adding interactivity, where possible. Its API and templates are designed to support full noscript fallbacks.
+---
 
-## Documentation
+*Stim.js is a lightweight, framework agnostic, JavaScript front-end framework designed to accelerate and add interactivity to server side rendering (SSR) apps.*
 
-### Getting started
-Build `stim.js` and include it on your HTML page.
+Be productive! 🙂 Write your application the "old fashioned" way with the server rendering HTML and receiving postbacks, and then use Stim.js to make it feel like a modern single-page application.
 
-### Turbo-boosted links
-When Stim.js is loaded, or whenever it loads (part of) another page, all links (`<a>` tags) in the DOM will be checked and bound for preloading, if they are compatible.
-
-#### Compatible `<a>` links
-For a link to qualify, it must meet all the following requirements:
- - Refer to a target of `_self`, or don't have a target;
- - Have a relative URL (not absolute, and not an `#anchor`)
-
-#### Preload behavior
-Preloading begins when a user begins clicking the link (on touch start or mouse down) by sending an XHR GET request to the server.
-
-In most cases, when the user releases the link press, that small window of time (~100ms) is enough to fully or partially load the page, at which point it will be applied to the DOM - this will feel almost instantaneous. 
-
-If the XHR request fails for whatever reason, the browser will hard-navigate to the URL without XHR. If the link-click is aborted by the user, the preload will also be aborted if possible, and the DOM won't change.
-
-#### Server-side integration
+### Stim.js is...
+- **Lightweight:** a single file with zero dependencies and written in pure JavaScript.
+- **Framework agnostic**: does not require any server side integration, and any optional integration is done through HTML attributes and generic request parameters.
+- **An optional drop in:** it encourages you to design your application so that even if JavaScript is disabled, your application's core functionality will continue to work.
