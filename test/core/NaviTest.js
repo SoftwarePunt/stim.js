@@ -60,4 +60,13 @@ describe('Navi', () => {
       expect(Navi.getIsLinkElementBound(anchor)).to.be.false;
     });
   });
+
+  describe('#bindLinkElement()', () => {
+    it('should set stim-bound property', () => {
+      let anchor = document.createElement('a');
+      anchor.setAttribute('href', '/page.html');
+      Navi.bindLinkElement(anchor);
+      expect(anchor.getAttribute('stim-bound')).to.equal('true');
+    });
+  });
 });
