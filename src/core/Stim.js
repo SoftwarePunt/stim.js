@@ -1,6 +1,6 @@
 import Navi from './Navi';
 import Tooltips from "../components/Tooltips";
-import Templates from "./Templates";
+import Templates from "../templates/Templates";
 
 const pkgVersion = require('../../package.json').version;
 
