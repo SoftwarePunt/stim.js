@@ -20,6 +20,7 @@ export default class Tooltips {
 
     let _templateInstance = null;
     let _isMouseOver = false;
+    let _titleValue = element.title;
 
     if (!element.eventBag) {
       element.eventBag = new EventBag(element);
@@ -32,9 +33,13 @@ export default class Tooltips {
       if (!_isMouseOver) {
         _isMouseOver = true;
         if (_templateInstance == null) {
+          if (element.title) {
+            _titleValue = element.title;
+          }
           _templateInstance = template.instantiate({
-            title: element.title
+            title: _titleValue
           });
+          element.removeAttribute("title");
         }
       }
     });
@@ -46,6 +51,7 @@ export default class Tooltips {
           _templateInstance.destroy();
           _templateInstance = null;
         }
+        element.setAttribute("title", _titleValue);
       }
     });
 
