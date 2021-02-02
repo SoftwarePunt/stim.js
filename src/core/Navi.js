@@ -83,8 +83,10 @@ export default class Navi {
     link.addEventListener('touchstart', _onClickBegin, {passive: true});
 
     const _onClickCancel = () => {
-      _isClicking = false;
-      Loader.stopPreload(_href, "click canceled (mouseleave/touchcancel)");
+      if (_isClicking) {
+        _isClicking = false;
+        Loader.stopPreload(_href, "click canceled (mouseleave/touchcancel)");
+      }
     };
     link.addEventListener('mouseleave', _onClickCancel, {passive: true});
     link.addEventListener('touchcancel', _onClickCancel, {passive: true});
