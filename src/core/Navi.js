@@ -51,12 +51,18 @@ export default class Navi {
       // Reject - link does not have a valid href, links to an #anchor, or is an external link.
       return false;
     }
-
     if (link.target && link.target !== "_self") {
       // Reject - link is meant to open in another tab, window or frame
       return false;
     }
-
+    if (link.rel && link.rel === "external") {
+      // Reject - hinted to be an external link
+      return false;
+    }
+    if (link.getAttribute('download') || link.getAttribute('stim-ignore')) {
+      // Reject - link has "download" or "stim-ignore" attribute
+      return false;
+    }
     // No objections
     return true;
   }
@@ -99,4 +105,3 @@ export default class Navi {
     link.setAttribute('stim-bound', true);
   }
 }
-window.Navi = Navi;
