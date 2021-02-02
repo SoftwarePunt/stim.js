@@ -2,7 +2,8 @@
 
 🏡 [**https://github.com/SoftwarePunt/stim.js**](https://github.com/SoftwarePunt/stim.js)
 
-> ⚠ Notice: This project is still being prototyped and developed, and is not suitable for production use right now.
+``` warning:: This project is still being prototyped and developed, and is not suitable for production use right now. Things may change or break at any time.
+```
 
 ## Introduction
 *Stim.js is a lightweight, framework agnostic, JavaScript front-end framework designed to accelerate and add interactivity to server side rendering (SSR) apps.*
@@ -17,3 +18,5 @@ Be productive! 🙂 Write your application the "old fashioned" way with the serv
 ## Contents
 * [Installation](installation.md)
 * [Links and preloading](links.md)
+* [Templates](templates.md)
+* [Tooltips](tooltips.md)

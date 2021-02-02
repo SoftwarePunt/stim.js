@@ -13,7 +13,7 @@ author = 'Roy de Jong'
 
 # ----- General configuration ------------------------------------------------------------------------------------------
 
-extensions = ['recommonmark', 'sphinx_rtd_theme']
+extensions = ['recommonmark', 'sphinx_markdown_tables', 'sphinx_rtd_theme']
 templates_path = ['_templates']
 exclude_patterns = []
 
