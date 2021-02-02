@@ -5,6 +5,8 @@
 
 ---
 
+> ⚠ Notice: This project is still being prototyped and developed, and is not suitable for production use right now.
+
 *Stim.js is a lightweight, framework agnostic, JavaScript front-end framework designed to accelerate and add interactivity to server side rendering (SSR) apps.*
 
 Be productive! 🙂 Write your application the "old fashioned" way with the server rendering HTML and receiving postbacks, and then use Stim.js to make it feel like a modern single-page application.

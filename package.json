@@ -1,8 +1,8 @@
 {
   "name": "stim.js",
-  "version": "0.1.0",
-  "description": "Lightweight Frontend Framework",
-  "main": "src/index.js",
+  "version": "0.1.1",
+  "description": "Lightweight drop-in frontend framework for SSR apps",
+  "main": "build/stim.js",
   "license": "Proprietary",
   "private": false,
   "devDependencies": {
@@ -19,6 +19,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "watch": "webpack --watch --progress --mode development",
-    "test": "mocha --recursive --require @babel/register"
+    "test": "mocha --recursive --require @babel/register",
+    "prepack": "yarn build"
   }
 }
