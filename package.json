@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "description": "Lightweight drop-in frontend framework for SSR apps",
   "main": "build/stim.js",
-  "license": "Proprietary",
+  "license": "MIT",
   "private": false,
   "devDependencies": {
     "@babel/core": "^7.12.10",
