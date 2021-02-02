@@ -46,4 +46,18 @@ describe('Navi', () => {
       expect(Navi.getIsLinkElementCompatible(anchor)).to.be.false;
     });
   });
+
+  describe('#getIsLinkElementBound()', () => {
+    it('should return true for links with stim-bound property', () => {
+      let anchor = document.createElement('a');
+      anchor.setAttribute('href', '/page.html');
+      anchor.setAttribute('stim-bound', true);
+      expect(Navi.getIsLinkElementBound(anchor)).to.be.true;
+    });
+    it('should return false for links without stim-bound property', () => {
+      let anchor = document.createElement('a');
+      anchor.setAttribute('href', '/page.html');
+      expect(Navi.getIsLinkElementBound(anchor)).to.be.false;
+    });
+  });
 });
