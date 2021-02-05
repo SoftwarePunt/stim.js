@@ -1,6 +1,7 @@
 import Navi from './Navi';
-import Tooltips from "../components/Tooltips";
 import Templates from "../templates/Templates";
+import Forms from "../components/Forms";
+import Tooltips from "../components/Tooltips";
 
 const pkgVersion = require('../../package.json').version;
 
@@ -46,6 +47,7 @@ export default class Stim {
     Navi.processLinks();
     Templates.scan();
     // Components
+    Stim.Forms.update();
     Stim.Tooltips.update();
   }
 
@@ -69,6 +71,10 @@ export default class Stim {
 
   static get Templates() {
     return Templates;
+  }
+
+  static get Forms() {
+    return Forms;
   }
 
   static get Tooltips() {

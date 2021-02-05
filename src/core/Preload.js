@@ -33,7 +33,7 @@ export default class Preload {
   apply() {
     if (this.done) {
       Stim.debug('[Preload]', '(Applying)', this.href);
-      Applicator.handlePreloadResult(this);
+      Applicator.handleXhrResult(this.href, this.xhr, !this.historyMode);
     } else {
       Stim.debug('[Preload]', '(Can\'t apply preload that isn\'t done!)', this.href);
     }

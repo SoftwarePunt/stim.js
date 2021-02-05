@@ -4,10 +4,7 @@ import Stim from "./Stim";
  * Utility for applying loaded XHR responses to the DOM and state.
  */
 export default class Applicator {
-  static handlePreloadResult(preload) {
-    const href = preload.href;
-    const xhr = preload.xhr;
-
+  static handleXhrResult(href, xhr, writeHistory = false) {
     if (xhr.status >= 400) {
       // 4XX or 5XX server error, XHR load failed
       // redirect the browser for real to handle the situation (e.g. show error page)
@@ -21,7 +18,7 @@ export default class Applicator {
 
     // Apply <title> tag if we have one
     const titleElement = holderElement.getElementsByTagName('title')[0];
-    let prevTitle = document.title.toString();
+    const prevTitle = document.title.toString();
     let nextTitle = prevTitle;
     if (titleElement) {
       nextTitle = titleElement.text
@@ -34,7 +31,7 @@ export default class Applicator {
     }
 
     // Push history state
-    if (!preload.historyMode) {
+    if (writeHistory) {
       history.pushState(null, nextTitle, href);
     }
     document.title = nextTitle;
