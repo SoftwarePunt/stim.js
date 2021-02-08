@@ -12,8 +12,10 @@ Also, the package is available on npm if that's your kind of thing: [**stim.js**
 Simply require the script on your page:
 
 ```html
-<script src="stim.js"></script>
+<script src="stim.js" async defer></script>
 ```
 
-It does not require any dependencies and will execute on `DOMContentLoaded`.
+Stim.js does not require any dependencies and will execute on `DOMContentLoaded`. 
+
+It is recommended to use `async` and `defer` so the script does not delay page loading or rendering in any way. 
 
