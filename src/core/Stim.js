@@ -2,6 +2,7 @@ import Navi from './Navi';
 import Templates from "../templates/Templates";
 import Forms from "../components/Forms";
 import Tooltips from "../components/Tooltips";
+import Autoscroll from "../components/Autoscroll";
 
 const pkgVersion = require('../../package.json').version;
 
@@ -49,6 +50,7 @@ export default class Stim {
     // Components
     Stim.Forms.update();
     Stim.Tooltips.update();
+    Stim.Autoscroll.update();
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -79,5 +81,9 @@ export default class Stim {
 
   static get Tooltips() {
     return Tooltips;
+  }
+
+  static get Autoscroll() {
+    return Autoscroll;
   }
 }

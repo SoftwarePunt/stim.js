@@ -4,7 +4,6 @@ import Applicator from "../core/Applicator";
 
 export default class Forms {
   static update() {
-    Stim.log('checkin forms...');
     let forms = document.querySelectorAll('form[stim-post]');
     for (let i = 0; i < forms.length; i++) {
       Forms.configureForm(forms[i]);
