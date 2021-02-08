@@ -4,7 +4,8 @@
   "description": "Lightweight drop-in frontend framework for SSR apps",
   "main": "build/stim.js",
   "license": "MIT",
-  "private": false,
+  "homepage": "https://github.com/SoftwarePunt/stim.js",
+  "bugs": "https://github.com/SoftwarePunt/stim.js/issues",
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
