@@ -33,16 +33,22 @@ describe('Navi', () => {
       anchor.setAttribute('rel', 'external');
       expect(Navi.getIsLinkElementCompatible(anchor)).to.be.false;
     });
-    it('should return false for internal links with download attribute', () => {
+    it('should return false for internal links with (empty) download attribute', () => {
       let anchor = document.createElement('a');
       anchor.setAttribute('href', '/page.html');
-      anchor.setAttribute('download', true);
+      anchor.setAttribute('download', "");
       expect(Navi.getIsLinkElementCompatible(anchor)).to.be.false;
     });
     it('should return false for internal links with stim-ignore attribute', () => {
       let anchor = document.createElement('a');
       anchor.setAttribute('href', '/page.html');
       anchor.setAttribute('stim-ignore', true);
+      expect(Navi.getIsLinkElementCompatible(anchor)).to.be.false;
+    });
+    it('should return false for internal links with empty stim-ignore attribute', () => {
+      let anchor = document.createElement('a');
+      anchor.setAttribute('href', '/page.html');
+      anchor.setAttribute('stim-ignore', "");
       expect(Navi.getIsLinkElementCompatible(anchor)).to.be.false;
     });
   });

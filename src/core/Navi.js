@@ -59,7 +59,7 @@ export default class Navi {
       // Reject - hinted to be an external link
       return false;
     }
-    if (link.getAttribute('download') || link.getAttribute('stim-ignore')) {
+    if (link.getAttribute('download') !== null || link.getAttribute('stim-ignore') !== null) {
       // Reject - link has "download" or "stim-ignore" attribute
       return false;
     }
