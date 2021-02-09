@@ -15,7 +15,7 @@ export default class Forms {
     const formMethod = element.getAttribute('method');
     const stimPost = element.getAttribute('stim-post');
 
-    const postUrl = stimPost || formAction || document.location;
+    const postUrl = stimPost || formAction || document.location.href;
 
     if (!element.eventBag) {
       element.eventBag = new EventBag(element);
@@ -35,7 +35,7 @@ export default class Forms {
 
          _xhr = new XMLHttpRequest();
          _xhr.addEventListener('load', () => {
-           Applicator.handleXhrResult(postUrl, _xhr, false);
+           Applicator.handleXhrResult(postUrl, _xhr, false, true);
          });
          _xhr.open('POST', postUrl);
          _xhr.send(formData);

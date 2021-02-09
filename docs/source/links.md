@@ -36,4 +36,7 @@ Whitelist mode: Once `stim-zone` is found on a body, a hard reload will be perfo
 
 Blacklist mode: If `stim-kill` is found on a body, a hard reload will be performed.
 
-This is useful to prevent your page layout from breaking when Stim.js inadvertently loads an error page or external page that should not be loaded inline.
+This is useful to prevent your page layout from breaking when Stim.js inadvertently loads an error page or external page that should not be loaded inline.     
+
+### `rel=canonical`
+The server can optionally send the canonical URL as a meta tag. If this is encountered on an inline load, it will be used for the address bar and browser history. This may be useful because Stim.js may not be able to detect URL redirects properly.
