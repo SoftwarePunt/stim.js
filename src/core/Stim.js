@@ -4,6 +4,7 @@ import Forms from "../components/Forms";
 import Tooltips from "../components/Tooltips";
 import Autoscroll from "../components/Autoscroll";
 import Applicator from "./Applicator";
+import Tabs from "../components/Tabs";
 
 const pkgVersion = require('../../package.json').version;
 
@@ -53,6 +54,7 @@ export default class Stim {
     Stim.Forms.update();
     Stim.Tooltips.update();
     Stim.Autoscroll.update();
+    Stim.Tabs.update();
   }
 
   // -------------------------------------------------------------------------------------------------------------------
@@ -87,5 +89,9 @@ export default class Stim {
 
   static get Autoscroll() {
     return Autoscroll;
+  }
+
+  static get Tabs() {
+    return Tabs;
   }
 }
