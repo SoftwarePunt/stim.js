@@ -22,7 +22,6 @@ export default class Autoscroll {
       case "bottom":
         // Default mode: snap to bottom, nothing special
         element.scrollTop = element.scrollHeight - element.clientHeight;
-        console.log(element.scrollTop, element.scrollHeight, element.clientHeight);
         break;
     }
   }

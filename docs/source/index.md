@@ -17,7 +17,7 @@ Be productive! 🙂 Write your application the "old fashioned" way with the serv
 
 ## Contents
 * [Installation](installation.md)
-* [Links and preloading](links.md)
+* [Links and inline loading](links.md)
 * [Forms](forms.md)
 * [Templates](templates.md)
 * [Tooltips](tooltips.md)

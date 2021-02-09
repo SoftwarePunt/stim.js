@@ -3,6 +3,7 @@ import Templates from "../templates/Templates";
 import Forms from "../components/Forms";
 import Tooltips from "../components/Tooltips";
 import Autoscroll from "../components/Autoscroll";
+import Applicator from "./Applicator";
 
 const pkgVersion = require('../../package.json').version;
 
@@ -24,6 +25,7 @@ export default class Stim {
     Navi.bindEvents();
     Templates.init();
 
+    Applicator.handleInitialLoad();
     Stim.handlePageReloaded();
 
     if (typeof window != "undefined") {
