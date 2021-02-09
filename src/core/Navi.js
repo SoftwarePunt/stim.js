@@ -21,6 +21,8 @@ export default class Navi {
   }
 
   static processLinks() {
+    Loader.stopAllPreloads();
+
     const links = document.getElementsByTagName('a');
 
     let linksBound = 0;
