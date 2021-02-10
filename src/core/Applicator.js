@@ -5,7 +5,7 @@ import Stim from "./Stim";
  */
 export default class Applicator {
   static handleInitialLoad() {
-    this.checkStimZone(document.body, true);
+    this.checkStimZone(document.body, null, true);
   }
 
   static handleXhrResult(href, xhr, writeHistory = false, isFormPost = false) {
@@ -43,10 +43,20 @@ export default class Applicator {
     // Apply <body> tag if we have one
     const bodyElement = holderElement.getElementsByTagName('body')[0];
     if (bodyElement) {
-      if (!this.checkStimZone(bodyElement, false)) {
+      if (!this.checkStimZone(bodyElement, href, false)) {
         return;
       }
+      // Apply HTML
       document.body.innerHTML = bodyElement.innerHTML;
+      // Reset attributes
+      while (document.body.attributes.length > 0) {
+        document.body.removeAttribute(document.body.attributes[0].name);
+      }
+      // Copy attributes
+      for (let i = 0; i < bodyElement.length; i++) {
+        const attribute = bodyElement[i];
+        document.body.setAttribute(attribute.name, attribute.value);
+      }
     }
 
     // Push history state
@@ -61,12 +71,8 @@ export default class Applicator {
     }, 0);
   }
 
-  static checkStimZone(bodyElement, isInitialLoad = false) {
-    if (!bodyElement) {
-      return;
-    }
-
-    if (document.body.getAttribute('stim-zone') != null) {
+  static checkStimZone(bodyElement, href, isInitialLoad = false) {
+    if (bodyElement.getAttribute('stim-zone') != null) {
       // stim-zone found, we are now in "whitelist" mode and expect this to be on all body elements we load
       if (!Applicator.stimZoneMode) {
         Stim.log(`Whitelist mode enabled for inline loading (stim-zone)`);
@@ -91,10 +97,6 @@ export default class Applicator {
   }
 
   static tryGetCanonicalUrl(rootElement) {
-    if (!rootElement) {
-      return;
-    }
-
     const linkElement = rootElement.querySelector('link[rel="canonical"]');
     if (linkElement) {
       const href = linkElement.href;
