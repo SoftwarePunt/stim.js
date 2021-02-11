@@ -30,6 +30,8 @@ export default class Tooltips {
       element.eventBag.removeEventListener("mousemove.tooltips");
     }
 
+    let _jumpTimeout = null;
+
     element.eventBag.addEventListener("mouseover.tooltips", () => {
       if (!_isMouseOver) {
         _isMouseOver = true;
@@ -48,6 +50,10 @@ export default class Tooltips {
     element.eventBag.addEventListener("mouseleave.tooltips", () => {
       if (_isMouseOver) {
         _isMouseOver = false;
+        if (_jumpTimeout != null) {
+          clearTimeout(_jumpTimeout);
+          _jumpTimeout = null;
+        }
         if (_templateInstance != null) {
           _templateInstance.destroy();
           _templateInstance = null;
@@ -59,10 +65,37 @@ export default class Tooltips {
     element.eventBag.addEventListener("mousemove.tooltips", (e) => {
       if (_templateInstance) {
         const ttElement = _templateInstance.element;
+        ttElement.style.visibility = "hidden";
 
-        ttElement.style.position = 'fixed';
-        ttElement.style.left = `${e.screenX}px`;
-        ttElement.style.top = `${e.screenY}px`;
+        if (_jumpTimeout != null) {
+          clearTimeout(_jumpTimeout);
+          _jumpTimeout = null;
+        }
+
+        _jumpTimeout = setTimeout(() => {
+          const ttRect = ttElement.getBoundingClientRect();
+          const ttWidth = ttRect.width;
+          const ttHeight = ttRect.height;
+
+          const clientWidth = document.body.clientWidth;
+          const clientHeight = document.body.clientHeight;
+
+          let nextX = e.screenX;
+          let nextY = e.screenY;
+          let jumpMargin = 15;
+
+          if (nextX + ttWidth + jumpMargin >= clientWidth) {
+            nextX -= ttWidth;
+          }
+          if (nextY + ttHeight + jumpMargin >= clientHeight) {
+            nextY -= ttHeight*2;
+          }
+
+          ttElement.style.position = 'fixed';
+          ttElement.style.left = `${nextX}px`;
+          ttElement.style.top = `${nextY}px`;
+          ttElement.style.visibility = "visible";
+        }, 150);
       }
     });
 
