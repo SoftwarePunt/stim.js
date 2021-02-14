@@ -26,10 +26,10 @@ If the link-click is finalized, but the XHR request failed, the browser will har
 
 ## Integration
 
-### `stim-ignore`
+### Opening links externally (`stim-ignore`)
 If this attribute is set on a link, it will be ignored by Stim.js.
 
-### `stim-kill` and `stim-zone`
+### Breaking out of inline loads (`stim-kill` and `stim-zone`)
 These attributes can be set on the `<body>` element to form a blacklist or whitelist for which pages can be loaded inline by Stim.js.
 
 Whitelist mode: Once `stim-zone` is found on a body, a hard reload will be performed if a page is loaded that does *not* have the `stim-zone` attribute on its body.
@@ -38,5 +38,8 @@ Blacklist mode: If `stim-kill` is found on a body, a hard reload will be perform
 
 This is useful to prevent your page layout from breaking when Stim.js inadvertently loads an error page or external page that should not be loaded inline.     
 
-### `rel=canonical`
+### Updating actual URLs (`rel=canonical`)
 The server can optionally send the canonical URL as a meta tag. If this is encountered on an inline load, it will be used for the address bar and browser history. This may be useful because Stim.js may not be able to detect URL redirects properly.
+
+### Executing scripts (`stim-run`)
+By adding a `stim-run` attribute to `<script>` tag, that script will run whenever a page is loaded inline. 

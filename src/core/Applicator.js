@@ -1,4 +1,5 @@
 import Stim from "./Stim";
+import ElementUtils from "./ElementUtils";
 
 /**
  * Utility for applying loaded XHR responses to the DOM and state.
@@ -48,15 +49,14 @@ export default class Applicator {
       }
       // Apply HTML
       document.body.innerHTML = bodyElement.innerHTML;
-      // Reset attributes
-      while (document.body.attributes.length > 0) {
-        document.body.removeAttribute(document.body.attributes[0].name);
-      }
       // Copy attributes
-      for (let i = 0; i < bodyElement.length; i++) {
-        const attribute = bodyElement[i];
-        document.body.setAttribute(attribute.name, attribute.value);
-      }
+      ElementUtils.copyAttributes(bodyElement, document.body, true);
+    }
+
+    // Remove stale injected scriptsscripts
+    const staleScripts = document.querySelectorAll('head > script[stim-injected]');
+    for (let i = 0; i < staleScripts.length; i++) {
+      staleScripts[i].remove();
     }
 
     // Push history state
@@ -65,9 +65,22 @@ export default class Applicator {
     }
     document.title = nextTitle;
 
-    // Fire change event asynchronously
+    // Fire change events asynchronously
     setTimeout(() => {
       Stim.handlePageReloaded();
+
+      // Run scripts (async)
+      const scriptElements = document.querySelectorAll('script[stim-run]');
+      for (let i = 0; i < scriptElements.length; i++) {
+        let scriptElement = scriptElements[i];
+        let injectedScriptElement;
+        if (scriptElement.src) {
+          injectedScriptElement = ElementUtils.injectRemoteScriptElement(scriptElement.src);
+        } else {
+          injectedScriptElement = ElementUtils.injectLocalScriptElement(scriptElement.textContent);
+        }
+        injectedScriptElement.setAttribute("stim-injected", true);
+      }
     }, 0);
   }
 
