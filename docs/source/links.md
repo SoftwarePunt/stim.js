@@ -42,4 +42,7 @@ This is useful to prevent your page layout from breaking when Stim.js inadverten
 The server can optionally send the canonical URL as a meta tag. If this is encountered on an inline load, it will be used for the address bar and browser history. This may be useful because Stim.js may not be able to detect URL redirects properly.
 
 ### Executing scripts (`stim-run`)
-By adding a `stim-run` attribute to `<script>` tag, that script will run whenever a page is loaded inline. 
+By adding a `stim-run` attribute to `<script>` tag, that script will run whenever a page is loaded inline.
+
+### Inline load event (`stim-load`)
+The `stim-load` event will be emitted on the `document` as soon as an inline load is complete. This event is not emitted on the initial page load.

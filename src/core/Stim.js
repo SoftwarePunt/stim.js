@@ -27,7 +27,7 @@ export default class Stim {
     Templates.init();
 
     Applicator.handleInitialLoad();
-    Stim.handlePageReloaded();
+    Stim.handlePageReloaded(true);
 
     if (typeof window != "undefined") {
       window.Stim = Stim;
@@ -39,7 +39,7 @@ export default class Stim {
   // -------------------------------------------------------------------------------------------------------------------
   // Loading changes
 
-  static handlePageReloaded() {
+  static handlePageReloaded(isFirstLoad = false) {
     // Data
     Stim.locationInfo = {
       host: location.host,
@@ -55,6 +55,11 @@ export default class Stim {
     Stim.Tooltips.update();
     Stim.Autoscroll.update();
     Stim.Tabs.update();
+
+    if (!isFirstLoad) {
+      // Emit event
+      document.dispatchEvent(new CustomEvent('stim-load'));
+    }
   }
 
   // -------------------------------------------------------------------------------------------------------------------
