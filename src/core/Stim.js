@@ -5,6 +5,7 @@ import Tooltips from "../components/Tooltips";
 import Autoscroll from "../components/Autoscroll";
 import Applicator from "./Applicator";
 import Tabs from "../components/Tabs";
+import Loader from "./Loader";
 
 const pkgVersion = require('../../package.json').version;
 
@@ -60,6 +61,11 @@ export default class Stim {
       // Emit event
       document.dispatchEvent(new CustomEvent('stim-load'));
     }
+  }
+
+  static navigate(href) {
+    const preload = Loader.startOrContinuePreload(href);
+    preload.commit();
   }
 
   // -------------------------------------------------------------------------------------------------------------------

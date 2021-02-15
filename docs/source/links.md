@@ -26,6 +26,9 @@ If the link-click is finalized, but the XHR request failed, the browser will har
 
 ## Integration
 
+### Manual navigation (`Stim.navigate()`)
+You can use `Stim.navigate(url)` to manually perform an inline load from a script. Note that the URL will not be validated.
+
 ### Opening links externally (`stim-ignore`)
 If this attribute is set on a link, it will be ignored by Stim.js.
 
