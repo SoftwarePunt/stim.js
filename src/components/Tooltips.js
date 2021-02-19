@@ -84,15 +84,22 @@ export default class Tooltips {
           const clientWidth = document.body.clientWidth;
           const clientHeight = document.body.clientHeight;
 
-          let nextX = e.screenX;
-          let nextY = e.screenY;
+          let nextX = e.clientX;
+          let nextY = e.clientY;
           let jumpMargin = 15;
 
           if (nextX + ttWidth + jumpMargin >= clientWidth) {
             nextX -= ttWidth;
+            ttElement.classList.add('-x-invert');
+          } else {
+            ttElement.classList.remove('-x-invert');
           }
+
           if (nextY + ttHeight + jumpMargin >= clientHeight) {
             nextY -= ttHeight * 2;
+            ttElement.classList.add('-y-invert');
+          } else {
+            ttElement.classList.remove('-y-invert');
           }
 
           ttElement.style.position = 'fixed';
