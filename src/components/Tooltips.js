@@ -43,11 +43,12 @@ export default class Tooltips {
             title: _titleValue
           });
           element.removeAttribute("title");
+          _templateInstance.element.style.visibility = "hidden";
         }
       }
     });
 
-    element.eventBag.addEventListener("mouseleave.tooltips", () => {
+    let _endEventHandler = () => {
       if (_isMouseOver) {
         _isMouseOver = false;
         if (_jumpTimeout != null) {
@@ -60,10 +61,13 @@ export default class Tooltips {
         }
         element.setAttribute("title", _titleValue);
       }
-    });
+    };
+
+    element.eventBag.addEventListener("mouseleave.tooltips", _endEventHandler);
+    element.eventBag.addEventListener("mousedown.tooltips", _endEventHandler);
 
     element.eventBag.addEventListener("mousemove.tooltips", (e) => {
-      if (_templateInstance) {
+      if (_templateInstance && _isMouseOver) {
         const ttElement = _templateInstance.element;
         ttElement.style.visibility = "hidden";
 
@@ -72,7 +76,7 @@ export default class Tooltips {
           _jumpTimeout = null;
         }
 
-        _jumpTimeout = setTimeout(() => {
+        let _applyPosition = (makeVisible) => {
           const ttRect = ttElement.getBoundingClientRect();
           const ttWidth = ttRect.width;
           const ttHeight = ttRect.height;
@@ -88,13 +92,22 @@ export default class Tooltips {
             nextX -= ttWidth;
           }
           if (nextY + ttHeight + jumpMargin >= clientHeight) {
-            nextY -= ttHeight*2;
+            nextY -= ttHeight * 2;
           }
 
           ttElement.style.position = 'fixed';
           ttElement.style.left = `${nextX}px`;
           ttElement.style.top = `${nextY}px`;
-          ttElement.style.visibility = "visible";
+          ttElement.style.visibility = makeVisible ? "visible" : "hidden";
+          ttElement.didSetInitialPosition = true;
+        };
+
+        if (!ttElement.didSetInitialPosition) {
+          _applyPosition(false);
+        }
+
+        _jumpTimeout = setTimeout(() => {
+          _applyPosition(true);
         }, 150);
       }
     });
