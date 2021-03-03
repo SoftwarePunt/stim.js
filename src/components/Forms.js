@@ -29,16 +29,25 @@ export default class Forms {
        e.preventDefault();
 
        if (_xhr === null) {
-         const formData = new FormData(element);
-
-         element.setAttribute('stim-loading', true);
-
-         _xhr = new XMLHttpRequest();
-         _xhr.addEventListener('load', () => {
-           Applicator.handleXhrResult(postUrl, _xhr, false, true);
+         const beforeSubmitEvent = new CustomEvent('stim-before-submit', {
+           detail: {
+             form: element
+           },
+           cancelable: true
          });
-         _xhr.open('POST', postUrl);
-         _xhr.send(formData);
+
+         if (document.dispatchEvent(beforeSubmitEvent)) {
+           const formData = new FormData(element);
+
+           element.setAttribute('stim-loading', true);
+
+           _xhr = new XMLHttpRequest();
+           _xhr.addEventListener('load', () => {
+             Applicator.handleXhrResult(postUrl, _xhr, false, true);
+           });
+           _xhr.open('POST', postUrl);
+           _xhr.send(formData);
+         }
        }
 
        return false;
