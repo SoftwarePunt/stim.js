@@ -43,8 +43,9 @@ export default class Navi {
       linksBound++;
     }
 
-    if (linksBound)
-      Stim.log(`Bound ${linksBound} links`);
+    if (linksBound) {
+      Stim.debug(`Bound ${linksBound} links`);
+    }
   }
 
   static getIsLinkElementCompatible(link) {

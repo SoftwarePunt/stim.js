@@ -47,7 +47,7 @@ export default class Stim {
       path: location.pathname,
       title: document.title
     };
-    Stim.log('Page (re)loaded', Stim.locationInfo);
+    Stim.debug('Page (re)loaded', Stim.locationInfo);
     // Core
     Navi.processLinks();
     Templates.scan();

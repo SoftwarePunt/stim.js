@@ -88,7 +88,7 @@ export default class Applicator {
     if (bodyElement.getAttribute('stim-zone') != null) {
       // stim-zone found, we are now in "whitelist" mode and expect this to be on all body elements we load
       if (!Applicator.stimZoneMode) {
-        Stim.log(`Whitelist mode enabled for inline loading (stim-zone)`);
+        Stim.debug(`Whitelist mode enabled for inline loading (stim-zone)`);
         Applicator.stimZoneMode = true;
         return false;
       }

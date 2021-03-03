@@ -13,10 +13,10 @@ export default class Templates {
       let templateId = templateElement.getAttribute('stim-template');
 
       if (typeof this._templates[templateId] === "undefined") {
-        Stim.log('Discovered new template:', templateId);
+        Stim.debug('Discovered new template:', templateId);
         this._templates[templateId] = new TemplateDefinition(templateId, templateElement);
       } else {
-        Stim.log('Discovered updated template:', templateId);
+        Stim.debug('Discovered updated template:', templateId);
         this._templates[templateId].setElementData(templateElement);
       }
     }

@@ -31,7 +31,8 @@ export default class Forms {
        if (_xhr === null) {
          const beforeSubmitEvent = new CustomEvent('stim-before-submit', {
            detail: {
-             form: element
+             form: element,
+             url: postUrl
            },
            cancelable: true
          });

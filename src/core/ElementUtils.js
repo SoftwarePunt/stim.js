@@ -22,7 +22,7 @@ export default class ElementUtils {
   }
 
   static injectLocalScriptElement(scriptText) {
-    Stim.log('injectLocalScriptElement', scriptText);
+    Stim.debug('injectLocalScriptElement', scriptText);
     let script = document.createElement('script');
     script.type = 'text/javascript';
     script.async = true;
@@ -32,7 +32,7 @@ export default class ElementUtils {
   }
 
   static injectRemoteScriptElement(src) {
-    Stim.log('injectLocalScriptElement', src);
+    Stim.debug('injectLocalScriptElement', src);
     let script = document.createElement('script');
     script.type = 'text/javascript';
     script.async = true;
