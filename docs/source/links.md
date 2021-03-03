@@ -47,5 +47,9 @@ The server can optionally send the canonical URL as a meta tag. If this is encou
 ### Executing scripts (`stim-run`)
 By adding a `stim-run` attribute to `<script>` tag, that script will run whenever a page is loaded inline.
 
-### Inline load event (`stim-load`)
-The `stim-load` event will be emitted on the `document` as soon as an inline load is complete. This event is not emitted on the initial page load.
+### Event: Before DOM change (`stim-before-change`)
+The `stim-before-change` event will be emitted right before the DOM is changed.
+
+### Event: Inline load complete (`stim-load`)
+The `stim-load` event will be emitted on the `document` as soon as an inline load is fully complete and the DOM has been changed. This event is not emitted on the initial page load.
+

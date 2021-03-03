@@ -18,6 +18,12 @@ export default class Applicator {
       return;
     }
 
+    const beforeChangeEvent = new CustomEvent('stim-before-change', {
+      detail: {},
+      cancelable: false
+    });
+    document.dispatchEvent(beforeChangeEvent);
+
     let holderElement = document.createElement('html');
     holderElement.innerHTML = xhr.response;
 
