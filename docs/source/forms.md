@@ -22,3 +22,9 @@ If the contents of your page have dynamically changed, you can force a manual up
 ```javascript
 Stim.Forms.update();
 ```
+
+## stim-before-submit
+Before a form is submitted, Stim.js will emit the `stim-before-submit` event on the document. This event is cancelable to prevent the submission from going ahead.
+
+- `event.detail.form` - references the form element 
+- `event.detail.url` - the URL Stim.js will submit the form to via POST
