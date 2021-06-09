@@ -39,12 +39,25 @@ export default class Applicator {
     let canonicalUrl = this.tryGetCanonicalUrl(holderElement.getElementsByTagName('head')[0]);
     if (canonicalUrl) {
       if (canonicalUrl !== href) {
-        // Back up query params
-        let queryParams = null;
-        let queryIdx = href.indexOf('?');
-        if (queryIdx >= 0) {
-          queryParams = new URLSearchParams(href.substr(queryIdx));
-          canonicalUrl += `?${queryParams}`;
+        // Get any query params in canonical url
+        let queryParamsCanon = null;
+        let queryIdxCanon = canonicalUrl.indexOf('?');
+        if (queryIdxCanon >= 0) {
+          queryParamsCanon = new URLSearchParams(canonicalUrl.substr(queryIdxCanon));
+        }
+        // Back up / merge query params from href
+        let queryIdxHref = href.indexOf('?');
+        if (queryIdxHref >= 0) {
+          let queryParamsHref = new URLSearchParams(href.substr(queryIdxHref));
+          if (!queryParamsCanon) {
+            canonicalUrl += `?${queryParamsHref}`;
+          } else {
+            queryParamsHref.forEach((value, key) => {
+              if (!queryParamsCanon.has(key)) {
+                canonicalUrl += '&' + key + '='  + encodeURIComponent(value.toString());
+              }
+            });
+          }
         }
         // Apply
         Stim.log('Detected canonical URL change:', href, '->', canonicalUrl);
