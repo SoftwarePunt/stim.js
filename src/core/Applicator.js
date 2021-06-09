@@ -36,9 +36,17 @@ export default class Applicator {
     }
 
     // Read canonical URL from header or meta tag
-    const canonicalUrl = this.tryGetCanonicalUrl(holderElement.getElementsByTagName('head')[0]);
+    let canonicalUrl = this.tryGetCanonicalUrl(holderElement.getElementsByTagName('head')[0]);
     if (canonicalUrl) {
       if (canonicalUrl !== href) {
+        // Back up query params
+        let queryParams = null;
+        let queryIdx = href.indexOf('?');
+        if (queryIdx >= 0) {
+          queryParams = new URLSearchParams(href.substr(queryIdx));
+          canonicalUrl += `?${queryParams}`;
+        }
+        // Apply
         Stim.log('Detected canonical URL change:', href, '->', canonicalUrl);
         href = canonicalUrl;
         if (!writeHistory && isFormPost) {
