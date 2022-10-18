@@ -6,6 +6,7 @@ import Autoscroll from "../components/Autoscroll";
 import Applicator from "./Applicator";
 import Tabs from "../components/Tabs";
 import Loader from "./Loader";
+import Modals from "../components/Modals";
 
 const pkgVersion = require('../../package.json').version;
 
@@ -56,6 +57,7 @@ export default class Stim {
     Stim.Tooltips.update();
     Stim.Autoscroll.update();
     Stim.Tabs.update();
+    Stim.Modals.update();
 
     if (!isFirstLoad) {
       // Emit event
@@ -104,5 +106,9 @@ export default class Stim {
 
   static get Tabs() {
     return Tabs;
+  }
+
+  static get Modals() {
+    return Modals;
   }
 }
