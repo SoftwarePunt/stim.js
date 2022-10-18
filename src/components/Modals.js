@@ -18,7 +18,8 @@ export default class Modals {
 
     let modals = document.querySelectorAll('*[stim-modal]');
     for (let i = 0; i < modals.length; i++) {
-      Modals.configureModal(modals[i]);
+      const modal = modals[i];
+      Modals.configureModal(modal.getAttribute('stim-modal'), modal);
     }
   }
 
@@ -31,23 +32,7 @@ export default class Modals {
     if (!this.dragModal)
       return;
 
-    const rect = this.dragModal.getBoundingClientRect();
-    const marginPx = 5;
-
-    const minX = marginPx;
-    const maxX = (window.innerWidth - rect.width - marginPx);
-    if (rect.x <= minX)
-      this.dragModal.style.left = `${minX}px`;
-    else if (rect.x >= maxX)
-      this.dragModal.style.left = `${maxX}px`;
-
-    const minY = marginPx;
-    const maxY = (window.innerHeight - rect.height - marginPx);
-    if (rect.y <= marginPx)
-      this.dragModal.style.top = `${marginPx}px`;
-    else if (rect.y >= maxY)
-      this.dragModal.style.top = `${maxY}px`;
-
+    this.finalizeModalPosition(this.dragModal);
   }
 
   static handleDragMove(e) {
@@ -66,7 +51,37 @@ export default class Modals {
     this.dragStartY = e.clientY;
   }
 
-  static configureModal(element) {
+  static finalizeModalPosition(modal) {
+    const rect = modal.getBoundingClientRect();
+
+    if (rect.width <= 0 || rect.height <= 0)
+      return;
+
+    const marginPx = 5;
+
+    const minX = marginPx;
+    const maxX = (window.innerWidth - rect.width - marginPx);
+    if (rect.x <= minX)
+      modal.style.left = `${minX}px`;
+    else if (rect.x >= maxX)
+      modal.style.left = `${maxX}px`;
+
+    const minY = marginPx;
+    const maxY = (window.innerHeight - rect.height - marginPx);
+    if (rect.y <= minY)
+      modal.style.top = `${minY}px`;
+    else if (rect.y >= maxY)
+      modal.style.top = `${maxY}px`;
+
+    if (modal.getAttribute("stim-modal") === "persist") {
+      const windowId = modal.getAttribute("stim-id");
+      localStorage.setItem(windowId, JSON.stringify(modal.getBoundingClientRect()));
+    }
+  }
+
+  static configureModal(mode, element) {
+    const windowId = "modal:" + (element.id || "") + "#" + element.className;
+
     const handles = element.querySelectorAll('*[stim-handle]');
     for (let i = 0; i < handles.length; i++) {
       const handle = handles[i];
@@ -80,6 +95,24 @@ export default class Modals {
     }
 
     element.style.position = 'fixed';
+
+    if (mode === "persist") {
+      try {
+        const storedRect = JSON.parse(localStorage.getItem(windowId));
+        if (storedRect && storedRect.x && storedRect.y) {
+          element.style.left = `${storedRect.x}px`;
+          element.style.top = `${storedRect.y}px`;
+        }
+      } catch (e) {
+        // JSON parse error
+      }
+    }
+
     element.setAttribute("stim-bound", true);
+    element.setAttribute("stim-id", windowId);
+
+    setTimeout(() => {
+      this.finalizeModalPosition(element);
+    }, 100);
   }
 }
