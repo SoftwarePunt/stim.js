@@ -12,10 +12,21 @@ export default class Forms {
 
   static configureForm(element) {
     const formAction = element.getAttribute('action');
-    const formMethod = element.getAttribute('method');
     const stimPost = element.getAttribute('stim-post');
 
-    const postUrl = stimPost || formAction || document.location.href;
+    let formMethod = element.getAttribute('method');
+    if (!formMethod) {
+      // Default to POST behavior
+      formMethod = "post";
+    } else {
+      formMethod = formMethod.toLowerCase();
+    }
+    if (formMethod !== "post" && formMethod !== "get") {
+      // Unsupported form type
+      return;
+    }
+
+    const targetUrl = stimPost || formAction || document.location.href;
 
     if (!element.eventBag) {
       element.eventBag = new EventBag(element);
@@ -32,22 +43,40 @@ export default class Forms {
          const beforeSubmitEvent = new CustomEvent('stim-before-submit', {
            detail: {
              form: element,
-             url: postUrl
+             url: targetUrl
            },
            cancelable: true
          });
 
          if (document.dispatchEvent(beforeSubmitEvent)) {
            const formData = new FormData(element);
-
            element.setAttribute('stim-loading', true);
 
-           _xhr = new XMLHttpRequest();
-           _xhr.addEventListener('load', () => {
-             Applicator.handleXhrResult(postUrl, _xhr, false, true);
-           });
-           _xhr.open('POST', postUrl);
-           _xhr.send(formData);
+           switch (formMethod) {
+             case "post": {
+               _xhr = new XMLHttpRequest();
+               _xhr.addEventListener('load', () => {
+                 Applicator.handleXhrResult(targetUrl, _xhr, false, true);
+               });
+               _xhr.open('POST', targetUrl);
+               _xhr.send(formData);
+               break;
+             }
+             case "get": {
+               const queryString = new URLSearchParams(formData).toString();
+
+               const targetUrlQueryIndex = targetUrl.indexOf('?');
+               let targetUrlNoQuery;
+               if (targetUrlQueryIndex > 0) {
+                 targetUrlNoQuery = targetUrl.substring(0, targetUrlQueryIndex);
+               } else {
+                 targetUrlNoQuery = targetUrl;
+               }
+
+               Stim.navigate(`${targetUrlNoQuery}?${queryString}`);
+               break;
+             }
+           }
          }
        }
 
