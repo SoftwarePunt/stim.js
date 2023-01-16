@@ -25,6 +25,8 @@ export default class Preload {
 
     this.committed = true;
 
+    Stim.LoadingBar.handlePageLoadCommit();
+
     if (this.done) {
       this.apply();
     }

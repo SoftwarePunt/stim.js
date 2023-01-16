@@ -7,6 +7,7 @@ import Applicator from "./Applicator";
 import Tabs from "../components/Tabs";
 import Loader from "./Loader";
 import Modals from "../components/Modals";
+import LoadingBar from "../components/LoadingBar";
 
 const pkgVersion = require('../../package.json').version;
 
@@ -27,6 +28,7 @@ export default class Stim {
 
     Navi.bindEvents();
     Templates.init();
+    LoadingBar.init();
 
     Applicator.handleInitialLoad();
     Stim.handlePageReloaded(true);
@@ -58,6 +60,7 @@ export default class Stim {
     Stim.Autoscroll.update();
     Stim.Tabs.update();
     Stim.Modals.update();
+    Stim.LoadingBar.handlePageLoaded();
 
     if (!isFirstLoad) {
       // Emit event
@@ -110,5 +113,9 @@ export default class Stim {
 
   static get Modals() {
     return Modals;
+  }
+
+  static get LoadingBar() {
+    return LoadingBar;
   }
 }

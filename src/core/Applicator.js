@@ -80,7 +80,7 @@ export default class Applicator {
       ElementUtils.copyAttributes(bodyElement, document.body, true);
     }
 
-    // Remove stale injected scriptsscripts
+    // Remove stale injected scripts
     const staleScripts = document.querySelectorAll('head > script[stim-injected]');
     for (let i = 0; i < staleScripts.length; i++) {
       staleScripts[i].remove();

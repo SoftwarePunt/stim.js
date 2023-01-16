@@ -60,6 +60,7 @@ export default class Forms {
                });
                _xhr.open('POST', targetUrl);
                _xhr.send(formData);
+               Stim.LoadingBar.handlePageLoadCommit();
                break;
              }
              case "get": {

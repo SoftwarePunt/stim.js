@@ -24,6 +24,11 @@ If the link-click is aborted by the user, the preload will also be aborted if po
 
 If the link-click is finalized, but the XHR request failed, the browser will hard-navigate to the URL without XHR.
 
+## LoadingBar
+Between release of the link click and the final page load, a loading bar appears on the top of the page by default. This helps the page feel responsive while the background load completes. 
+
+See [LoadingBar](./loadingbar.md) for customization and options.
+
 ## Integration
 
 ### Manual navigation (`Stim.navigate()`)
