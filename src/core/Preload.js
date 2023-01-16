@@ -20,13 +20,31 @@ export default class Preload {
     this.xhr.send();
   }
 
-  commit() {
+  commit(skipEvent = false) {
+    if (this.committed)
+      return;
+    if (this.stopped)
+      throw new Error("Cannot commit to stopped Preload");
+
     Stim.debug('[Preload]', '(Committing)', this.href);
 
+    if (!skipEvent) {
+      // Emit our version of "beforeunload"
+      let eBeforeUnload = new CustomEvent('stim-before-commit', {
+        detail: {
+          preload: this
+        },
+        cancelable: true
+      });
+      window.dispatchEvent(eBeforeUnload);
+      if (eBeforeUnload.defaultPrevented) {
+        return;
+      }
+    }
+
+    // Commit to load
     this.committed = true;
-
     Stim.LoadingBar.handlePageLoadCommit();
-
     if (this.done) {
       this.apply();
     }

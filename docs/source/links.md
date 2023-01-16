@@ -52,9 +52,30 @@ The server can optionally send the canonical URL as a meta tag. If this is encou
 ### Executing scripts (`stim-run`)
 By adding a `stim-run` attribute to `<script>` tag, that script will run whenever a page is loaded inline.
 
+### Event: Before commit (`stim-before-commit`)
+The `stim-before-commit` event is our internal equivalent of `beforeunload`. It is triggered when a preload is committed (i.e. on mouse click release).
+
+If default is prevented on this event, the commit will not proceed.  Instead, you should manually commit or abort the preload.
+
+For example, if you want a nice integrated prompt:
+
+```javascript
+window.addEventListener('stim-before-commit', (e) => {
+  e.preventDefault();
+  this.exampleAsyncPromptFunction("Are you sure you want to do that?")
+    .then((result) => {
+      if (result)
+        e.detail.preload.commit(true); // arg true for `skipEvent`, to prevent loop
+      else
+        e.detail.preload.abort();
+    });
+});
+```
+
+
+
 ### Event: Before DOM change (`stim-before-change`)
 The `stim-before-change` event will be emitted right before the DOM is changed.
 
 ### Event: Inline load complete (`stim-load`)
 The `stim-load` event will be emitted on the `document` as soon as an inline load is fully complete and the DOM has been changed. This event is not emitted on the initial page load.
-
