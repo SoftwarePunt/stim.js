@@ -39,7 +39,7 @@ export default class Tooltips {
           if (element.title) {
             _titleValue = element.title;
           }
-          _templateInstance = template.instantiate({
+          _templateInstance = template.instantiateFromElement(element, {
             title: _titleValue
           });
           element.removeAttribute("title");

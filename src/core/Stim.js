@@ -8,6 +8,7 @@ import Tabs from "../components/Tabs";
 import Loader from "./Loader";
 import Modals from "../components/Modals";
 import LoadingBar from "../components/LoadingBar";
+import ContextMenu from "../components/ContextMenu";
 
 const pkgVersion = require('../../package.json').version;
 
@@ -57,6 +58,7 @@ export default class Stim {
     // Components
     Stim.Forms.update();
     Stim.Tooltips.update();
+    Stim.ContextMenu.update();
     Stim.Autoscroll.update();
     Stim.Tabs.update();
     Stim.Modals.update();
@@ -101,6 +103,10 @@ export default class Stim {
 
   static get Tooltips() {
     return Tooltips;
+  }
+
+  static get ContextMenu() {
+    return ContextMenu;
   }
 
   static get Autoscroll() {

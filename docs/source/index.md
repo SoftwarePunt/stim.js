@@ -21,6 +21,7 @@ Be productive! 🙂 Write your application the "old fashioned" way with the serv
 * [Forms](forms.md)
 * [Templates](templates.md)
 * [Tooltips](tooltips.md)
+* [ContextMenu](contextmenu.md)
 * [Autoscroll](autoscroll.md)
 * [Tabs](tabs.md)
 * [LoadingBar](loadingbar.md)

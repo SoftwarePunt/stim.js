@@ -19,6 +19,24 @@ export class TemplateDefinition {
   }
 
   /**
+   * @param {Element} element Trigger element from the binding context.
+   * @param {object|null} baseData Predefined / priority template data.
+   * @returns {TemplateInstance}
+   */
+  instantiateFromElement(element, baseData = null) {
+    let dataCombined = { };
+    for (const key in element.dataset) {
+      dataCombined[key] = element.dataset[key];
+    }
+    if (baseData) {
+      for (const [key, value] of Object.entries(baseData)) {
+        dataCombined[key] = value;
+      }
+    }
+    return this.instantiate(dataCombined);
+  }
+
+  /**
    * @param {object|null} data
    * @returns {TemplateInstance}
    */
@@ -26,7 +44,7 @@ export class TemplateDefinition {
     const instanceId = this.idGenerator++;
 
     let element = document.createElement(this.tagName);
-    element.innerHTML = this.html;
+    element.innerHTML = TemplateDefinition.prepareInnerHtml(this.html, data);
     element.setAttribute("stim-mounted", true);
     element.setAttribute("stim-instance-id", instanceId);
     for (let i = 0; i < this.attributes.length; i++) {
@@ -43,5 +61,21 @@ export class TemplateDefinition {
     this.instances[instanceId] = instance;
     Stim.debug('Instantiate template:', this.id, instance);
     return instance;
+  }
+
+  static prepareInnerHtml(html, data) {
+    for (const [key, value] of Object.entries(data)) {
+      html = html.replaceAll(`[%%${key}%%]`, this.stripHtml(value));
+    }
+    return html;
+  }
+
+  static stripHtml(text) {
+    return text
+      .replaceAll(/&/g, "&amp;")
+      .replaceAll(/</g, "&lt;")
+      .replaceAll(/>/g, "&gt;")
+      .replaceAll(/"/g, "&quot;")
+      .replaceAll(/'/g, "&#039;");
   }
 }

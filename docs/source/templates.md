@@ -1,5 +1,5 @@
 # Templates
-Templates are a core part of Stim.js. They are used for re-usable and dynamic components like [Tooltips](./tooltips.md).
+Templates are a core part of Stim.js. They are used for re-usable and dynamic components like [Tooltips](./tooltips.md) and [ContextMenu](./contextmenu.md).
 
 ## Structure
 A template is defined in HTML and must be rendered by the server at least once before it can be used.
@@ -29,6 +29,34 @@ Here's an explanation of the `stim-` attributes that can be used with templates:
 |`stim-template`|All (required)|This defines the globally unique **Template ID** on its root element. This is used as a key when referring to the template elsewhere, and acts a a cache key.|
 |`stim-data`|All|This instructs Stim.js to fill the node's text value with a piece of template data. If the data is not available, the placeholder text is kept.|
 |`stim-position`|[Tooltips](./tooltips.md)|Controls how the element should be positioned, see [Tooltips](./tooltips.md) for details.|
+
+## Variables
+Variables can be injected into templates so it's easier to reuse them.
+
+Which variables are available depends on the component you're using templates with. In most cases this is a set of predefined variables, plus any `data-` properties you have set on the bound element.
+
+These variables can be injected in the template in one of two ways:
+
+ - The **`stim-data` attribute** can be used to set the text content of a specific element to the value of the variable.
+ - The **variable syntax** can be used to replace the value in the raw template HTML before it is instantiated on the DOM.
+
+The variable syntax looks like this: ``[%%varname%%]``.
+
+Here is what that might look like when combined with a context menu:
+
+```html
+<div stim-template="my-ctx-template">
+    <a href="/goto/entity/[%%id%%]">Go to the entity</a>
+</div>
+
+<a href="#" stim-menu="my-ctx-template" data-id="123">Open the menu</a>
+
+<!-- The above will render in the DOM as follows when instantiated: -->
+<div stim-mounted="true" stim-instance-id="0">
+    <a href="/goto/entity/123">Go to the entity</a>
+</div>
+```
+
 
 ## Styling
 The server is responsible for rendering HTML and applying styles itself.
