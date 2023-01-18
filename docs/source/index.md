@@ -24,4 +24,5 @@ Be productive! 🙂 Write your application the "old fashioned" way with the serv
 * [ContextMenu](contextmenu.md)
 * [Autoscroll](autoscroll.md)
 * [Tabs](tabs.md)
+* [Modals](modals.md)
 * [LoadingBar](loadingbar.md)

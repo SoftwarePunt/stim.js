@@ -44,4 +44,4 @@ Stim.LoadingBar.setStyle(LoadingBarStyle.Blue); // default style
 Stim.LoadingBar.setStyle(LoadingBarStyle.None); // remove all styles
 ```
 
-You can manually define/override CSS styles by targeting the `.stim-progressbar` class. 
+You can manually define/override CSS styles by targeting the `.stim-loadingbar` class. 
