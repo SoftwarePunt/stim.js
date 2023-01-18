@@ -1,5 +1,6 @@
 import Stim from "../core/Stim";
 import EventBag from "../utils/EventBag";
+import Navi from "../core/Navi";
 
 export default class ContextMenu {
   static update() {
@@ -70,6 +71,7 @@ export default class ContextMenu {
     menuInstance.element.style.top = `${posY}px`;
 
     // Update components that can be used in menus
+    Navi.processLinks();
     Stim.Tooltips.update();
   }
 

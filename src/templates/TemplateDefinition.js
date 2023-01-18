@@ -53,7 +53,12 @@ export class TemplateDefinition {
         element.setAttribute(attribute.name, attribute.value);
       }
     }
+    element.querySelectorAll('*[stim-bound]').forEach((boundElement) => {
+      // Remove "bound" markings from template parts - they won't actually be bound after cloning
+      boundElement.removeAttribute('stim-bound');
+    });
     document.body.appendChild(element);
+
 
     let instance = new TemplateInstance(instanceId, element);
     instance.applyData(data);
