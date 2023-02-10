@@ -1,14 +1,15 @@
 export default class DragSort {
-  static update(isFirstLoad) {
+  static update() {
     this.draggingRoot = null;
     this.draggingElement = null;
     this.ghostElement = null;
     this.spacerGhostElement = null;
     this.dragSwapElement = null;
 
-    if (isFirstLoad) {
+    if (!this.docEventsBound) {
       document.addEventListener("mouseup", this.stopDragging.bind(this));
       document.addEventListener("mousemove", this.moveDragging.bind(this));
+      this.docEventsBound = true;
     }
 
     let dragSorts = document.querySelectorAll('*[stim-dragsort]');
