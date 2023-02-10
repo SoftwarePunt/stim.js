@@ -63,7 +63,7 @@ export default class Stim {
     Stim.Autoscroll.update();
     Stim.Tabs.update();
     Stim.Modals.update();
-    Stim.DragSort.update();
+    Stim.DragSort.update(isFirstLoad);
     Stim.LoadingBar.handlePageLoaded();
 
     if (!isFirstLoad) {
