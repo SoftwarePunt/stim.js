@@ -9,6 +9,7 @@ import Loader from "./Loader";
 import Modals from "../components/Modals";
 import LoadingBar from "../components/LoadingBar";
 import ContextMenu from "../components/ContextMenu";
+import DragSort from "../components/DragSort";
 
 const pkgVersion = require('../../package.json').version;
 
@@ -62,6 +63,7 @@ export default class Stim {
     Stim.Autoscroll.update();
     Stim.Tabs.update();
     Stim.Modals.update();
+    Stim.DragSort.update();
     Stim.LoadingBar.handlePageLoaded();
 
     if (!isFirstLoad) {
@@ -119,6 +121,10 @@ export default class Stim {
 
   static get Modals() {
     return Modals;
+  }
+
+  static get DragSort() {
+    return DragSort;
   }
 
   static get LoadingBar() {

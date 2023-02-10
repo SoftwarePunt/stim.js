@@ -84,6 +84,6 @@ export default class Forms {
        return false;
     });
 
-    element.setAttribute("stim-bound", true);
+    1
   }
 }
