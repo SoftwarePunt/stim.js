@@ -12,9 +12,16 @@ export default class Applicator {
   static handleXhrResult(href, xhr, writeHistory = false, isFormPost = false) {
     if (xhr.status >= 400) {
       // 4XX or 5XX server error, XHR load failed
-      // redirect the browser for real to handle the situation (e.g. show error page)
-      Stim.log(`Hard redirecting user, got bad response code (${xhr.status})`);
-      document.location = href;
+      if (isFormPost) {
+        // as this error result is from a form post, we can't redirect the browser
+        // instead, show the raw error page
+        Stim.log(`XHR failed for form post, showing error page`);
+        document.body.innerHTML = xhr.response;
+      } else {
+        // redirect the browser for real to handle the situation (e.g. show error page)
+        Stim.log(`Hard redirecting user, got bad response code (${xhr.status})`);
+        document.location = href;
+      }
       return;
     }
 

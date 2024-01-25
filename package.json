@@ -1,6 +1,6 @@
 {
   "name": "stim.js",
-  "version": "0.13.2",
+  "version": "0.13.3",
   "description": "Lightweight drop-in frontend framework for SSR apps",
   "main": "build/stim.js",
   "license": "MIT",
